@@ -1,16 +1,16 @@
 {
   "name": "ipmerge",
   "version": "0.0.1",
-  "homepage": "http://gitlab.alibaba-inc.com/pengchun/ipmerge",
+  "homepage": "http://github.com/aleafs/ipmerge",
   "author": {
-    "name" : "pengchun",
-    "email" : "pengchun@taobao.com"
+    "name" : "Aleafs Zhang",
+    "email" : "zhangxc83@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.alibaba-inc.com:pengchun/ipmerge.git"
+    "url": "git@github.com:aleafs/ipmerge.git"
   },
-  "description": "a simple tcp proxy",
+  "description": "merge range data (such as iptable) to one dict",
   "keywords": [],
   "dependencies": {
   },
