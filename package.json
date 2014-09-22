@@ -1,0 +1,40 @@
+{
+  "name": "ipmerge",
+  "version": "0.0.1",
+  "homepage": "http://gitlab.alibaba-inc.com/pengchun/ipmerge",
+  "author": {
+    "name" : "pengchun",
+    "email" : "pengchun@taobao.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.alibaba-inc.com:pengchun/ipmerge.git"
+  },
+  "description": "a simple tcp proxy",
+  "keywords": [],
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">=0.8.14"
+  },
+  "devDependencies": {
+    "should" : "~2.1.1",
+    "mocha" : "~1.15.1",
+    "jshint" : "*",
+    "blanket": "*",
+    "travis-cov": "*",
+    "mocha-lcov-reporter": "*"
+  },
+  "scripts": {
+    "main" : "index.js",
+    "test" : "make test"
+  },
+  "config" : {
+    "blanket": {
+      "pattern": ["index.js"]
+    },
+    "travis-cov": {
+      "threshold": 40
+    }
+  }
+}
