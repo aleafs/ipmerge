@@ -3,6 +3,10 @@
 "use strict";
 
 exports.long2ip = function (n) {
+  if (n < 0 || n > 4294967295) {
+    return '';
+  }
+
   var dot = [0, 0, 0, 0];
   return dot.map(function (v, i) {
     var k = Math.pow(256, 3 - i);
