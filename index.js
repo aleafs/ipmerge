@@ -72,17 +72,13 @@ exports.merge = function (temp, step) {
     }
     mile = t;
 
-    if (null === v.d || v.d !== last.d) {
-      writeLast(last, row.s - step);
-      if (null !== v.d) {
-        last = {
-          's' : Math.max(v.s, row.s),
-          'e' : Math.max(v.e, row.e),
-          'd' : v.d,
-        };
-      } else {
-        last = row;
+    if (v.d !== last.d) {
+      if (null !== last.d) {
+        writeLast(last, row.s - step);
       }
+      last = {
+        's' : row.s, 'e' : row.e, 'd' : v.d
+      };
     }
   });
   writeLast(last);
