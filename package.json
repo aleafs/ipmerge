@@ -22,6 +22,7 @@
     "mocha" : "~1.15.1",
     "jshint" : "*",
     "blanket": "*",
+    "coveralls" : "*",
     "travis-cov": "*",
     "mocha-lcov-reporter": "*"
   },
