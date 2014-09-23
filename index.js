@@ -21,40 +21,71 @@ exports.long2ip = function (n) {
  *
  * [{'s' : 1, 'e' : 2, 'p' : 1, 'd' : 'aa' }], 前闭后闭
  */
-exports.merge = function (data, step) {
+exports.merge = function (temp, step) {
   step = parseInt(step, 10);
   if (!step || step < 1) {
     step = 1;
   }
 
-  data = data.sort(function (a, b) {
+  var data = [];
+  temp.forEach(function (row) {
+    data.push({
+      's' : row.s, 'e' : row.e, 'p' : row.p, 'd' : row.d,
+    }, {
+      's' : row.e + step, 'e' : -1, 'p' : row.p, 'd' : null,
+    });
+  });
+
+  data.sort(function (a, b) {
     return a.s - b.s;
   });
 
   var dset = [];
-  var last = null;
+  var mile = [];
+  var last = {};
+
+  var writeLast = function (o, e) {
+    if (o && null !== o.d && undefined !== o.d) {
+      dset.push({
+        's' : o.s,
+        'e' : e || o.e,
+        'd' : o.d,
+      });
+    }
+  };
 
   data.forEach(function (row) {
-    if (!last) {
-      last = row;
-    } else if (row.s > last.e + step) {    /**<  连续轴上断掉  */
-      dset.push(last);
-      last = row;
-    } else {
-      if (row.p < last.p && row.d != last.d) {
-        last.e = row.s - step;
-        dset.push(last);
-        last = row;
+
+    if (null !== row.d) {
+      mile.push(row);
+    }
+
+    var t = [];
+    var v = {'d' : null};
+    for (var i = 0; i < mile.length; i++) {
+      if (mile[i].s <= row.s && mile[i].e > row.s) {
+        t.push(mile[i]);
+        if (null === v.d || mile[i].p < v.p) {
+          v = mile[i];
+        }
+      }
+    }
+    mile = t;
+
+    if (null === v.d || v.d !== last.d) {
+      writeLast(last, row.s - step);
+      if (null !== v.d) {
+        last = {
+          's' : Math.max(v.s, row.s),
+          'e' : Math.max(v.e, row.e),
+          'd' : v.d,
+        };
       } else {
-        last.e = row.e;
-        last.p = Math.min(last.p, row.p);
+        last = row;
       }
     }
   });
-
-  if (last) {
-    dset.push(last);
-  }
+  writeLast(last);
 
   return dset;
 };

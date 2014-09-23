@@ -25,13 +25,19 @@ describe('ipmerge interface test', function () {
 
   it('should_merge_works_fine', function () {
     ipmerge.merge([{
+      's' : 3, 'e' : 6, 'p' : 1, 'd' : 'AAA',
+    }, {
       's' : 1, 'e' : 8, 'p' : 2, 'd' : 'ABC',
     }, {
-      's' : 3, 'e' : 6, 'p' : 1, 'd' : 'AAA',
+      's' : 9, 'e' : 22, 'p' : 3, 'd' : 'ABC',
     }]).should.eql([{
-      's' : 1, 'e' : 2, 'p' : 2, 'd' : 'ABC',
+      's' : 1, 'e' : 2, 'd' : 'ABC',
     }, {
-      's' : 3, 'e' : 6, 'p' : 1, 'd' : 'AAA',
+      's' : 3, 'e' : 6, 'd' : 'AAA',
+    }, {
+      's' : 7, 'e' : 8, 'd' : 'ABC',
+    }, {
+      's' : 9, 'e' : 22, 'd' : 'ABC',
     }]);
   });
 
