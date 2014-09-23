@@ -1,5 +1,5 @@
-[![Build Status](https://secure.travis-ci.org/aleafs/ipmerge.png?branch=master)](http://travis-ci.org/aleafs/ipmerge)
-[![Coverage Status](https://coveralls.io/repos/aleafs/ipmerge/badge.png)](https://coveralls.io/r/aleafs/ipmerge)
+[![Build Status](https://travis-ci.org/aleafs/ipmerge.svg?branch=master)](https://travis-ci.org/aleafs/ipmerge)
+[![Coverage Status](https://coveralls.io/repos/aleafs/ipmerge/badge.png?branch=master)](https://coveralls.io/r/aleafs/ipmerge?branch=master)
 
 ## About
 
