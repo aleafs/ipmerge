@@ -21,68 +21,83 @@ exports.long2ip = function (n) {
  *
  * [{'s' : 1, 'e' : 2, 'p' : 1, 'd' : 'aa' }], 前闭后闭
  */
-exports.merge = function (temp, step) {
+exports.merge = function (data, step) {
   step = parseInt(step, 10);
   if (!step || step < 1) {
     step = 1;
   }
 
-  var data = [];
-  temp.forEach(function (row) {
-    data.push({
-      's' : row.s, 'e' : row.e, 'p' : row.p, 'd' : row.d,
-    }, {
-      's' : row.e + step, 'e' : -1, 'p' : row.p, 'd' : null,
-    });
+  var tpos = {};
+  data.forEach(function (row) {
+    tpos[row.s] = 1;
+    tpos[row.e + 1] = 1;
   });
 
   data.sort(function (a, b) {
     return a.s - b.s;
   });
 
-  var dset = [];
-  var mile = [];
-  var last = {};
+  var doffs = 0;
+  var cache = [];
+  var stack = {};
+  var ipset = [];
 
+  /* {{{ function findValue() */
+  var findValue = function (start) {
+    var match = {'d' : null};
+    for (var i = doffs; i < data.length; i++) {
+      if (data[i].s > start) {
+        doffs = i;
+        break;
+      }
+
+      if (data[i].e > start) {
+        cache.push(data[i]);
+      }
+    }
+
+    var _temp = [];
+    cache.forEach(function (row) {
+      if (row.s <= start && row.e > start) {
+        _temp.push(row);
+        if (null === match.d || row.p < match.p) {
+          match = row;
+        }
+      }
+    });
+    cache = _temp;
+
+    return match;
+  };
+  /* }}} */
+
+  /* {{{ function writeLast() */
   var writeLast = function (o, e) {
     if (o && null !== o.d && undefined !== o.d) {
-      dset.push({
+      ipset.push({
         's' : o.s,
         'e' : e || o.e,
         'd' : o.d,
       });
     }
   };
+  /* }}} */
 
-  data.forEach(function (row) {
+  Object.keys(tpos).sort(function (a, b) {
+    return a - b;
+  }).forEach(function (start) {
 
-    if (null !== row.d) {
-      mile.push(row);
-    }
-
-    var t = [];
-    var v = {'d' : null};
-    for (var i = 0; i < mile.length; i++) {
-      if (mile[i].s <= row.s && mile[i].e > row.s) {
-        t.push(mile[i]);
-        if (null === v.d || mile[i].p < v.p) {
-          v = mile[i];
-        }
-      }
-    }
-    mile = t;
-
-    if (v.d !== last.d) {
-      if (null !== last.d) {
-        writeLast(last, row.s - step);
-      }
-      last = {
-        's' : row.s, 'e' : row.e, 'd' : v.d
+    start = start - 0;
+    var match = findValue(start);
+    if (match.d !== stack.d) {
+      writeLast(stack, start - step);
+      stack = {
+        's' : start, 'e' : match.e, 'd' : match.d,
       };
     }
   });
-  writeLast(last);
+  writeLast(stack);
 
-  return dset;
+  return ipset;
 };
 

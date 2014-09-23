@@ -23,11 +23,14 @@ describe('ipmerge interface test', function () {
   });
   /* }}} */
 
+  /* {{{ should_merge_works_fine() */
   it('should_merge_works_fine', function () {
     ipmerge.merge([{
       's' : 3, 'e' : 6, 'p' : 1, 'd' : 'AAA',
     }, {
       's' : 1, 'e' : 8, 'p' : 2, 'd' : 'ABC',
+    }, {
+      's' : 24, 'e' : 26, 'p' : 1, 'd' : 'ABC',
     }, {
       's' : 9, 'e' : 22, 'p' : 3, 'd' : 'ABC',
     }]).should.eql([{
@@ -35,11 +38,12 @@ describe('ipmerge interface test', function () {
     }, {
       's' : 3, 'e' : 6, 'd' : 'AAA',
     }, {
-      's' : 7, 'e' : 8, 'd' : 'ABC',
+      's' : 7, 'e' : 22, 'd' : 'ABC',
     }, {
-      's' : 9, 'e' : 22, 'd' : 'ABC',
+      's' : 24, 'e' : 26, 'd' : 'ABC',
     }]);
   });
+  /* }}} */
 
 });
 
