@@ -25,7 +25,7 @@ console.log(ipmerge.merge([{
 
 [
 	{'s' : 1, 'e' : 6, 'd' : 'ABC'},
-	{'s' : 7, 'e' : 30, 'd' : 'AAA'}
+	{'s' : 7, 'e' : 30, 'd' : 'ABB'}
 ]
 
 ```
