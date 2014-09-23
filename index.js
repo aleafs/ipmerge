@@ -17,6 +17,17 @@ exports.long2ip = function (n) {
   }).join('.');
 };
 
+exports.ip2long = function (s) {
+  var sec = String(s).split('.');
+  if (!sec || sec.length < 4) {
+    return -1;
+  }
+
+  return [16777216, 65536, 256, 1].reduce(function (s, t, p) {
+    return s + t * (sec[p] - 0);
+  }, 0);
+};
+
 /**
  *
  * [{'s' : 1, 'e' : 2, 'p' : 1, 'd' : 'aa' }], 前闭后闭
@@ -51,14 +62,14 @@ exports.merge = function (data, step) {
         break;
       }
 
-      if (data[i].e > start) {
+      if (data[i].e >= start) {
         cache.push(data[i]);
       }
     }
 
     var _temp = [];
     cache.forEach(function (row) {
-      if (row.s <= start && row.e > start) {
+      if (row.s <= start && row.e >= start) {
         _temp.push(row);
         if (null === match.d || row.p < match.p) {
           match = row;
