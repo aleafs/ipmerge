@@ -1,6 +1,7 @@
 {
   "name": "ipmerge",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "license" : "MIT",
   "homepage": "http://github.com/aleafs/ipmerge",
   "author": {
     "name" : "Aleafs Zhang",
@@ -31,9 +32,6 @@
     "test" : "make test"
   },
   "config" : {
-    "blanket": {
-      "pattern": ["/ipmerge/index.js"]
-    },
     "travis-cov": {
       "threshold": 90
     }
