@@ -21,7 +21,7 @@
     "should" : "~2.1.1",
     "mocha" : "~1.15.1",
     "jshint" : "*",
-    "blanket": "*",
+    "istanbul": "*",
     "coveralls" : "*",
     "travis-cov": "*",
     "mocha-lcov-reporter": "*"

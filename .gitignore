@@ -12,7 +12,7 @@ bin
 *.properties
 *.md5
 *.cache
-coverage.html
+coverage*
 public/status.taobao
 ._*
 *snapshot
